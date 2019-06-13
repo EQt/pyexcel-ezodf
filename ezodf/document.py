@@ -144,11 +144,12 @@ class FlatXMLDocument(_BaseDocument):
     """ OpenDocument contained in a single XML file. """
     TAG = CN('office:document')
 
-    def __init__(self, filetype='odt', filename=None, xmlnode=None):
+    def __init__(self, filetype='odt', filename=None, xmlnode=None, indent=False):
         super(FlatXMLDocument, self).__init__()
         self.docname = filename
         self.mimetype = MIMETYPES[filetype]
         self.doctype = filetype
+        self.indent = indent
 
         if xmlnode is None:  # new document
             self.xmlnode = etree.Element(self.TAG, nsmap=ALL_NSMAP)
@@ -203,6 +204,7 @@ class FlatXMLDocument(_BaseDocument):
     def tobytes(self):
         return etree.tostring(self.xmlnode,
                               xml_declaration=True,
+                              pretty_print=self.indent,
                               encoding='UTF-8')
 
 
