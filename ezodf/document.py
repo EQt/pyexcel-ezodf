@@ -171,11 +171,10 @@ class FlatXMLDocument(_BaseDocument):
 
     def _setup(self):
         self.meta = OfficeDocumentMeta(subelement(self.xmlnode, CN('office:meta')))
-        # self.styles = wrap(subelement(self.xmlnode, CN('office:settings')))
+        self.styles = wrap(subelement(self.xmlnode, CN('office:styles')))
         if not self.minimal:
             self.scripts = wrap(subelement(self.xmlnode, CN('office:scripts')))
             self.fonts = wrap(subelement(self.xmlnode, CN('office:font-face-decls')))
-            self.styles = wrap(subelement(self.xmlnode, CN('office:styles')))
             self.automatic_styles = wrap(subelement(self.xmlnode, CN('office:automatic-styles')))
             self.master_styles = wrap(subelement(self.xmlnode, CN('office:master-styles')))
         self.body = self.get_application_body(self.application_body_tag)
