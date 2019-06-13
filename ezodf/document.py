@@ -169,7 +169,7 @@ class FlatXMLDocument(_BaseDocument):
         self._create_shortcuts(self.body)
 
     def _setup(self):
-        self.meta = OfficeDocumentMeta(subelement(self.xmlnode, CN('office:document-meta')))
+        self.meta = OfficeDocumentMeta(subelement(self.xmlnode, CN('office:meta')))
         self.styles = wrap(subelement(self.xmlnode, CN('office:settings')))
         self.scripts = wrap(subelement(self.xmlnode, CN('office:scripts')))
         self.fonts = wrap(subelement(self.xmlnode, CN('office:font-face-decls')))

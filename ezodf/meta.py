@@ -28,7 +28,7 @@ TAGS = {
 
 @register_class
 class OfficeDocumentMeta(XMLMixin):
-    TAG = CN('office:document-meta')
+    TAG = CN('office:meta')
     generator = GENERATOR
 
     def __init__(self, xmlnode=None):
