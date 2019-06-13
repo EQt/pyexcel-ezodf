@@ -204,7 +204,10 @@ class FlatXMLDocument(_BaseDocument):
             fp.write(self.tobytes())
 
     def tobytes(self):
-        return etree.tostring(self.xmlnode,
+        root = self.xmlnode
+        if self.minimal:
+            etree.cleanup_namespaces(root)
+        return etree.tostring(root,
                               xml_declaration=True,
                               pretty_print=self.indent,
                               encoding='UTF-8')
