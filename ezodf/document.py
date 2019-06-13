@@ -9,7 +9,7 @@ __author__ = "mozman <mozman@gmx.at>"
 
 import os
 from .compatibility import tostr, is_bytes, is_zipfile, StringIO, is_stream
-from .const import MIMETYPES, MIMETYPE_BODYTAG_MAP, FILE_EXT_FOR_MIMETYPE
+from .const import MIMETYPES, MIMETYPE_BODYTAG_MAP, FILE_EXT_FOR_MIMETYPE, OFFICE_NS
 from .xmlns import subelement, CN, etree, wrap, ALL_NSMAP, fake_element
 from .filemanager import FileManager
 from .bytestreammanager import ByteStreamManager
@@ -152,6 +152,9 @@ class FlatXMLDocument(_BaseDocument):
 
         if xmlnode is None:  # new document
             self.xmlnode = etree.Element(self.TAG, nsmap=ALL_NSMAP)
+            self.xmlnode.set('{' + OFFICE_NS + '}version', '1.2')
+            self.xmlnode.set('{' + OFFICE_NS + '}mimetype', self.mimetype)
+
         elif xmlnode.tag == self.TAG:
             self.xmlnode = xmlnode
             self.mimetype = xmlnode.get(CN('office:mimetype'))  # required
