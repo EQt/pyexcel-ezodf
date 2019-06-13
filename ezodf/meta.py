@@ -52,7 +52,6 @@ class OfficeDocumentMeta(XMLMixin):
         self.meta = self.xmlnode.find(CN('office:meta'))
         if self.meta is None:  # this is a new document
             self.meta = subelement(self.xmlnode, CN('office:meta'))
-            self.xmlnode.set(CN('grddl:transformation'), "http://docs.oasis-open.org/office/1.2/xslt/odf2rdf.xsl")
             self['creation-date'] = datetime.now().isoformat()
             self.touch()
 
