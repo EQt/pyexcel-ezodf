@@ -10,7 +10,7 @@ __author__ = "mozman <mozman@gmx.at>"
 import sys
 
 VERSION = "0.1.0"
-GENERATOR = "http://pypi.python.org/pypi/ezodf/%s$Python%s" % (VERSION, sys.version)
+GENERATOR = "http://pypi.python.org/pypi/ezodf/%s$Python%s" % (VERSION, sys.version.replace('\n', ''))
 
 MIMETYPES = {
     'odt': "application/vnd.oasis.opendocument.text",
