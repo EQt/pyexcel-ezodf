@@ -51,7 +51,7 @@ class OfficeDocumentMeta(XMLMixin):
     def _setup(self):
         self.meta = self.xmlnode.find(CN('office:meta'))
         if self.meta is None:  # this is a new document
-            self.meta = subelement(self.xmlnode, CN('office:meta'))
+            self.meta = self.xmlnode
             self['creation-date'] = datetime.now().isoformat()
             self.touch()
 
