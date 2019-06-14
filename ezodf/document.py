@@ -144,7 +144,8 @@ class FlatXMLDocument(_BaseDocument):
     """ OpenDocument contained in a single XML file. """
     TAG = CN('office:document')
 
-    def __init__(self, filetype='odt', filename=None, xmlnode=None, indent=False, minimal=True):
+    def __init__(self, filetype='odt', filename=None, xmlnode=None, indent=False,
+                 minimal=True):
         super(FlatXMLDocument, self).__init__()
         self.docname = filename
         self.mimetype = MIMETYPES[filetype]
