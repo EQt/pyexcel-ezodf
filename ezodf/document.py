@@ -173,11 +173,10 @@ class FlatXMLDocument(_BaseDocument):
     def _setup(self):
         self.meta = OfficeDocumentMeta(subelement(self.xmlnode, CN('office:meta')))
         self.styles = wrap(subelement(self.xmlnode, CN('office:styles')))
-        if not self.minimal:
-            self.scripts = wrap(subelement(self.xmlnode, CN('office:scripts')))
-            self.fonts = wrap(subelement(self.xmlnode, CN('office:font-face-decls')))
-            self.automatic_styles = wrap(subelement(self.xmlnode, CN('office:automatic-styles')))
-            self.master_styles = wrap(subelement(self.xmlnode, CN('office:master-styles')))
+        self.automatic_styles = wrap(subelement(self.xmlnode, CN('office:automatic-styles')))
+        self.scripts = wrap(subelement(self.xmlnode, CN('office:scripts')))
+        self.fonts = wrap(subelement(self.xmlnode, CN('office:font-face-decls')))
+        self.master_styles = wrap(subelement(self.xmlnode, CN('office:master-styles')))
         self.body = self.get_application_body(self.application_body_tag)
 
     def get_application_body(self, bodytag):
@@ -206,6 +205,15 @@ class FlatXMLDocument(_BaseDocument):
     def tobytes(self):
         root = self.xmlnode
         if self.minimal:
+            for elem in [self.automatic_styles,
+                         self.styles,
+                         self.scripts,
+                         self.fonts,
+                         self.master_styles]:
+                node = elem.xmlnode
+                if not any(True for _ in node):
+                    self.xmlnode.remove(node)
+
             etree.cleanup_namespaces(root)
         return etree.tostring(root,
                               xml_declaration=True,
